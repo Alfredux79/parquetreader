@@ -5,20 +5,20 @@ import org.apache.hadoop.fs.Path;
 import org.apache.parquet.avro.AvroParquetReader;
 import org.apache.parquet.hadoop.ParquetReader;
 
-import java.util.logging.Logger;
-
-
 public class ParquetFileReader {
-
-    private static Logger logger = Logger.getLogger(ParquetFileReader.class.getSimpleName());
 
     public static void main(String ... args){
 
-        Path file = new Path("/opt/apache-drill-1.13.0/sample-data/nation.parquet");
-        System.out.println(file.getName());
+        Path file = new Path("src/main/resources/nation.parquet");
+        System.out.println(file.toUri());
         try {
             ParquetReader<GenericRecord> reader = AvroParquetReader.<GenericRecord>builder(file).build();
-            System.out.println(reader.read());
+            GenericRecord result = reader.read();
+            System.out.println(result.getSchema());
+            while ((result = reader.read()) != null) {
+                System.out.println(result);
+            }
+            reader.close();
         }catch (Exception e){
             e.printStackTrace();
         }
