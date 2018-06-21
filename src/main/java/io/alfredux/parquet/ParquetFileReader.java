@@ -7,7 +7,7 @@ import org.apache.parquet.hadoop.ParquetReader;
 
 public class ParquetFileReader {
 
-    public static void main(String ... args){
+    public static void main(String... args) {
 
         Path file = new Path("src/main/resources/nation.parquet");
         System.out.println(file.toUri());
@@ -19,7 +19,7 @@ public class ParquetFileReader {
                 System.out.println(result);
             }
             reader.close();
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
